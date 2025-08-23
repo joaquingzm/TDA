@@ -1,0 +1,11 @@
+[Version]
+Version=15.0
+[Designs]
+tda_workspace=.\TDA_Workspace\TDA_Workspace.adf
+[Browser]
+sort=order
+mode=none
+[Order]
+order=1
+[Expand]
+tda_workspace=1

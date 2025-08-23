@@ -1,0 +1,1 @@
+-w -d C:/Users/Joaco/Universidad/TDA/TDA_Workspace/TDA_Workspace/compile -s C:/Users/Joaco/Universidad/TDA/TDA_Workspace/library.cfg -j C:/Users/Joaco/Universidad/TDA/TDA_Workspace/TDA_Workspace/projlib.cfg -work TDA_Workspace -O3 -e 100 -work TDA_Workspace -2002 C:/Users/Joaco/Universidad/TDA/TDA_Workspace/TDA_Workspace/src/Practica01/simple2.vhd 

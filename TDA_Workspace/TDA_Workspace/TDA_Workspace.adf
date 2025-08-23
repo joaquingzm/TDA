@@ -1,0 +1,38 @@
+[Project]
+Current Flow=Generic
+VCS=0
+version=4
+Current Config=compile
+[Configurations]
+compile=TDA_Workspace
+[Library]
+TDA_Workspace=.\TDA_Workspace\TDA_Workspace.lib
+[$LibMap$]
+TDA_Workspace=.
+Active_lib=
+[Settings]
+FLOW_TYPE=HDL
+LANGUAGE=VHDL
+REFRESH_FLOW=1
+FLOWTOOLS=NONE
+FAMILY=
+[Files]
+Practica01/simple1.asdb=-1
+Practica01/simple1.awc=-1
+Practica01/simple2.asdb=-1
+Practica01/simple2.awc=-1
+Practica01/simple1.vhd=-1
+Practica01/simple2.vhd=-1
+[Files.Data]
+.\src\Practica01\simple1.asdb=Accelerated Waveform File
+.\src\Practica01\simple1.awc=Accelerated Waveform Configuration
+.\src\Practica01\simple2.asdb=Accelerated Waveform File
+.\src\Practica01\simple2.awc=Accelerated Waveform Configuration
+.\src\Practica01\simple1.vhd=VHDL Source Code
+.\src\Practica01\simple2.vhd=VHDL Source Code
+[HierarchyViewer]
+HierarchyInformation=simple|prueba|0
+ShowHide=ShowTopLevel
+Selected=
+[Groups]
+Practica01=1
