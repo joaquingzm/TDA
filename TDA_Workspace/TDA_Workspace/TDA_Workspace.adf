@@ -16,6 +16,7 @@ LANGUAGE=VHDL
 REFRESH_FLOW=1
 FLOWTOOLS=NONE
 FAMILY=
+fileopenfolder=C:\Users\Joaco\Universidad\TDA\TDA_Workspace\TDA_Workspace\src\Practica02
 [Files]
 Practica01/simple1.asdb=-1
 Practica01/simple1.awc=-1
@@ -23,6 +24,8 @@ Practica01/simple2.asdb=-1
 Practica01/simple2.awc=-1
 Practica01/simple1.vhd=-1
 Practica01/simple2.vhd=-1
+Practica02/test_DFF.vhd=-1
+Practica03/test_latch8.vhd=-1
 [Files.Data]
 .\src\Practica01\simple1.asdb=Accelerated Waveform File
 .\src\Practica01\simple1.awc=Accelerated Waveform Configuration
@@ -30,9 +33,13 @@ Practica01/simple2.vhd=-1
 .\src\Practica01\simple2.awc=Accelerated Waveform Configuration
 .\src\Practica01\simple1.vhd=VHDL Source Code
 .\src\Practica01\simple2.vhd=VHDL Source Code
+.\src\Practica02\test_DFF.vhd=VHDL Source Code
+.\src\Practica03\test_latch8.vhd=VHDL Source Code
 [HierarchyViewer]
-HierarchyInformation=simple|prueba|0
+HierarchyInformation=simple|prueba|0 test_dff|driver|0 test_latch8|driver|0
 ShowHide=ShowTopLevel
 Selected=
 [Groups]
 Practica01=1
+Practica02=1
+Practica03=1

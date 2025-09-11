@@ -1,0 +1,55 @@
+<config>
+    <version>
+        3.1
+    </version>
+    <comment>
+    </comment>
+    <databases>
+        <database id="">*virtual*</database>
+        <database id="e86a6424caa8a3e4c268240953000300">DFFSinModificar.asdb</database>
+    </databases>
+    <gridshown/>
+    <signallists>
+        <signallist id="0">
+        <signal>/Test_DFF/Preset</signal>
+        <signal>/Test_DFF/Clear</signal>
+        <signal>/Test_DFF/Clock</signal>
+        <signal>/Test_DFF/Data</signal>
+        <signal>/Test_DFF/Q</signal>
+        <signal>/Test_DFF/QBar</signal>
+        </signallist>
+    </signallists>
+    <timebases>
+        <timebase id="0">
+            <time start_time="39143" end_time="85395" />
+        </timebase>
+    </timebases>
+    <prefbases>
+        <prefbase id="0" >
+        </prefbase>
+    </prefbases>
+    <bookmarkbases>
+        <bookmarks id="0">
+            <bookmark value="9596"/>
+            <bookmark value="16068"/>
+            <bookmark value="16960"/>
+            <bookmark value="17630"/>
+            <bookmark value="17741"/>
+            <bookmark value="17853"/>
+        </bookmarks>
+    </bookmarkbases>
+    <cursorbases>
+        <cursors id="0">
+            <cursor value="40000" label="Cursor 1" locked="0" />
+        </cursors>
+    </cursorbases>
+    <measurementbases>
+    </measurementbases>
+    <commentbases>
+        <comments id="0">
+        </comments>
+    </commentbases>
+    <views>
+        <view signallist="0" propertybase="0" prefbase="0" type="1" bookmarks="0" cursors="0" measurements="-1" comments="-1" />
+    </views>
+</config>
