@@ -2,3 +2,10 @@
 .\src\Practica01\simple2.vhd
 .\src\Practica02\test_DFF.vhd
 .\src\Practica03\test_latch8.vhd
+.\src\Practica04\test_fulladder_PA.vhd
+.\src\Practica04\test_block_atributos_PB.vhd
+.\src\Practica05\test_adder8.vhd
+.\src\Practica06\test_shiftN.vhd
+.\src\Practica07\test_fsm.vhd
+.\src\Practica08\test_utils.vhd
+.\src\Practica09\test_mult4.vhd

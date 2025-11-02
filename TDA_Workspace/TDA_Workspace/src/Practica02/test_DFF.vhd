@@ -28,7 +28,8 @@ architecture Driver of Test_DFF is
     signal Preset, Clear: Bit := '1';
     signal Clock, Data, Q, QBar: Bit;     
 
-    constant Tclk : time := 3 ns; -- Constante de período del clock
+    -- Constante de período del clock
+    constant Tclk : time := 12 ns;
     constant SimTime : time := 100 ns;
 
 begin
@@ -36,8 +37,7 @@ UUT: DFF port map (Preset, Clear, Clock, Data, Q, Qbar);
 
 Clock_process : process
     constant NumCiclos : integer := SimTime / Tclk; -- cantidad de ciclos de clock
-begin	   
-	wait for 0.5ns; -- Desfasaje que permite que el flanco de subida de Clock no concida con el de Clear/Preset
+begin
     for i in 1 to NumCiclos loop
         Clock <= '0';
         wait for Tclk/2;
