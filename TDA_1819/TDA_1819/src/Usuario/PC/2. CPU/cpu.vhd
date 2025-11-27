@@ -113,7 +113,10 @@ architecture CPU_ARCHITECTURE of cpu is
 			EnableRegIFIPRd		: out 	std_logic;
 			EnableRegIFIRWr		: out 	std_logic;		
 			EnableRegIFIPWr		: out 	std_logic;
-			EnableRegID			: out   std_logic;
+			EnableRegID			: out   std_logic;	
+			--- Añado señal de control permitir modificar SP desde etapa ID ---
+			EnableRegIDSP		: out std_logic;
+			-------------------------------------------------------------------
 			EnableRegIDIP		: out   std_logic;
 			EnableRegEXALURd	: out   std_logic; 
 			EnableRegEXFPURd	: out   std_logic;
@@ -253,7 +256,10 @@ architecture CPU_ARCHITECTURE of cpu is
 			EnableRegIFIPRd		: in  std_logic;
 			EnableRegIFIRWr 	: in  std_logic;
 			EnableRegIFIPWr		: in  std_logic;
-			EnableRegID			: in  std_logic;
+			EnableRegID			: in  std_logic;   
+			--- Añado señal de control permitir modificar SP desde etapa ID ---
+			EnableRegIDSP		: in std_logic;
+			-------------------------------------------------------------------
 			EnableRegIDIP		: in  std_logic;
 			EnableRegEXALURd	: in  std_logic;
 			EnableRegEXFPURd	: in  std_logic;
@@ -311,7 +317,10 @@ architecture CPU_ARCHITECTURE of cpu is
 	SIGNAL DataRegInID:			std_logic_vector(31 downto 0);
 	SIGNAL IdRegID:				std_logic_vector(7 downto 0);
 	SIGNAL SizeRegID:			std_logic_vector(3 downto 0);
-	SIGNAL EnableRegID:			std_logic;
+	SIGNAL EnableRegID:			std_logic;					 
+	--- Añado señal de control permitir modificar SP desde etapa ID ---
+	SIGNAL EnableRegIDSP:       std_logic;
+	-------------------------------------------------------------------
 	SIGNAL EnableRegIDIP:		std_logic;
 	SIGNAL DataRegOutID:		std_logic_vector(31 downto 0);
 	SIGNAL EnableID:			std_logic;
@@ -412,6 +421,9 @@ begin
 			EnableRegIFIRWr		=> EnableRegIFIRWr,
 			EnableRegIFIPWr		=> EnableRegIFIPWr,
 			EnableRegID			=> EnableRegID,
+			--- Añado señal de control permitir modificar SP desde etapa ID ---
+			EnableRegIDSP		=> EnableRegIDSP,
+			-------------------------------------------------------------------
 			EnableRegIDIP		=> EnableRegIDIP,
 			EnableRegEXALURd	=> EnableRegEXALURd,
 			EnableRegEXFPURd	=> EnableRegEXFPURd,
@@ -546,7 +558,10 @@ begin
 			EnableRegIFIPRd		=> EnableRegIFIPRd,
 			EnableRegIFIRWr		=> EnableRegIFIRWr,
 			EnableRegIFIPWr		=> EnableRegIFIPWr,
-			EnableRegID			=> EnableRegID,
+			EnableRegID			=> EnableRegID,		
+			--- Añado señal de control permitir modificar SP desde etapa ID ---
+			EnableRegIDSP		=> EnableRegIDSP,
+			-------------------------------------------------------------------
 			EnableRegIDIP		=> EnableRegIDIP,
 			EnableRegEXALURd	=> EnableRegEXALURd,
 			EnableRegEXFPURd	=> EnableRegEXFPURd,

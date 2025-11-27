@@ -36,7 +36,13 @@ library TDA_1819;
 use TDA_1819.const_registros.all;
 use TDA_1819.const_cpu.all;
 use TDA_1819.repert_cpu.all;
-use TDA_1819.tipos_cpu.all;
+use TDA_1819.tipos_cpu.all;		  
+
+--- Añado las constantes de memoria para el Manejo de Pila ---
+	
+use TDA_1819.const_memoria.all;
+	
+-----------------------------------------------------------------
 
 
 
@@ -64,7 +70,10 @@ entity decode is
 		DataRegInID			: out   std_logic_vector(31 downto 0);
 		IdRegID				: out   std_logic_vector(7 downto 0);
 		SizeRegID			: out   std_logic_vector(3 downto 0);
-		EnableRegID			: out   std_logic;
+		EnableRegID			: out   std_logic; 
+		--- Añado señal de control permitir modificar SP desde etapa ID ---
+		EnableRegIDSP		: out   std_logic;
+		-------------------------------------------------------------------
 		EnableRegIDIP		: out   std_logic;
 		EnableIncWrPend		: out   std_logic;
 		EnableIncFPWrPend 	: out	std_logic;
@@ -142,6 +151,9 @@ begin
 			StallBrEX <= '0';
 			BranchIDtoSM.enable <= '0';
 			EnableRegID <= '0';
+			--- Añado señal de control permitir modificar SP desde etapa ID ---
+			EnableRegIDSP <= '0';
+			-------------------------------------------------------------------
 			EnableRegIDIP <= '0';
 			EnableIncWrPend <= '0';
 			EnableIncFPWrPend <= '0';
@@ -1532,7 +1544,95 @@ begin
 						WAIT UNTIL falling_edge(EnableID);
 					end if;
 				end if;
-				StopInit <= '1';
+				StopInit <= '1';   
+				
+			--- Añado al case los codop de las instrucciones pushh y poph ---
+				
+			WHEN PUSHH =>				   
+				--- Numero de registro a escribir en MEM (en el formato en el que lo recibe es nroReg + 1)
+				rdAux := to_integer(unsigned(IFtoIDLocal.package1(7 downto 0)));
+				
+				--- Instrucciones a la etapa de WB de en que registro escribir, con los datos de que etapa y cuantos bytes
+				IDtoWB.source <= std_logic_vector(to_unsigned(WB_NULL, IDtoWB.source'length));
+				
+				
+				--- Leer registro a pushear
+				IdRegID     <= std_logic_vector(to_unsigned(rdAux, IdRegID'length));
+			    SizeRegID   <= std_logic_vector(to_unsigned(2, SizeRegID'length));
+			    EnableRegID <= '1';
+			    WAIT FOR 1 ns;
+			    EnableRegID <= '0';
+				WAIT FOR 1 ns;
+				
+				--- Preparar el dato que MA va a escribir
+				IDtoMA.data.decode(31 downto 16) <= "ZZZZZZZZZZZZZZZZ";
+				IDtoMA.data.decode(15 downto 0) <= DataRegOutID(15 downto 0);
+				
+				
+				if (StallRAW = '0') then
+					--- Accedo al registro SP
+					IdRegID <= std_logic_vector(to_unsigned(ID_SP, IdRegID'length));
+					SizeRegID <= std_logic_vector(to_unsigned(2, SizeRegID'length));
+					EnableRegID <= '1';	
+					WAIT FOR 1 ns;
+					EnableRegID <= '0';
+					WAIT FOR 1 ns;
+					addrAux := to_integer(unsigned(DataRegOutID(15 downto 0)));	 
+					
+					-- Actualizar SP = SP - 2
+					DataRegInID(31 downto 16) <= "ZZZZZZZZZZZZZZZZ";
+					DataRegInID(15 downto 0) <= std_logic_vector(to_unsigned(addrAux - 2, 16));  -- SP_viejo - 2
+					
+					EnableRegIDSP <= '1';
+					WAIT FOR 1 ns;
+					EnableRegIDSP <= '0';
+					WAIT FOR 1 ns;		   
+					
+					--- Instrucciones a la etapa MA, que hacer en que direccion y cuantos bytes escribir
+					IDtoMA.address <= std_logic_vector(to_unsigned(addrAux-1, IDtoMA.address'length));
+					IDtoMA.mode <= std_logic_vector(to_unsigned(MEM_MEM, IDtoMA.mode'length));
+					IDtoMA.write <= '1';
+					IDtoMA.datasize <= std_logic_vector(to_unsigned(2, IDtoMA.datasize'length));
+					IDtoMA.source <= std_logic_vector(to_unsigned(MEM_ID, IDtoMA.source'length));
+   				end if;
+				
+			WHEN POPH =>
+				--- Numero de registro a escribir en WB (en el formato en el que lo recibe es nroReg + 1)
+				rdAux := to_integer(unsigned(IFtoIDLocal.package1(7 downto 0))) + 1;
+				
+				--- Accedo al registro SP
+				IdRegID <= std_logic_vector(to_unsigned(ID_SP, IdRegID'length));
+				SizeRegID <= std_logic_vector(to_unsigned(2, SizeRegID'length));
+				EnableRegID <= '1';
+				WAIT FOR 1 ns;
+				EnableRegID <= '0';
+				WAIT FOR 1 ns;
+				addrAux := to_integer(unsigned(DataRegOutID(15 downto 0)));	   		
+				if (StallRAW = '0') then
+					--- Instrucciones a la etapa de WB de en que registro escribir, con los datos de que etapa y cuantos bytes
+					IDtoWB.mode <= std_logic_vector(to_unsigned(rdAux, IDtoWB.mode'length));
+					IDtoWB.datasize <= std_logic_vector(to_unsigned(2, IDtoWB.datasize'length));
+					IDtoWB.source <= std_logic_vector(to_unsigned(WB_MEM, IDtoWB.source'length));
+					
+					-- Actualizar SP = SP + 2
+					DataRegInID(31 downto 16) <= "ZZZZZZZZZZZZZZZZ";
+					DataRegInID(15 downto 0) <= std_logic_vector(to_unsigned(addrAux + 2, 16));  -- SP_viejo + 2
+					
+					EnableRegIDSP <= '1';
+					WAIT FOR 1 ns;
+					EnableRegIDSP <= '0';
+					WAIT FOR 1 ns;		   
+					
+					--- Instrucciones a la etapa MA, que hacer en que direccion y cuantos bytes leer
+					IDtoMA.address <= std_logic_vector(to_unsigned(addrAux+1, IDtoMA.address'length));
+					IDtoMA.mode <= std_logic_vector(to_unsigned(MEM_MEM, IDtoMA.mode'length));
+					IDtoMA.read <= '1';
+					IDtoMA.datasize <= std_logic_vector(to_unsigned(2, IDtoMA.datasize'length));	  
+				end if;
+				
+			
+			-------------------------------------------------------------------------
+			
 			WHEN OTHERS =>
 				report "Error: el código de operación de la instrucción no es válido"
 				severity FAILURE;

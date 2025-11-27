@@ -120,29 +120,60 @@ begin
 		end if;
 		intAddress := to_integer(unsigned(DataAddrBusMem)); 
 		accessSize := to_integer(unsigned(DataSizeBusMem));
-		iDataBus := 0;
-		if ((intAddress < DATA_BEGIN) or (intAddress > INST_BEGIN-1)) then
-			report "Error: la dirección seleccionada no pertenece a la memoria de datos"
-			severity FAILURE;
-		end if;
+		iDataBus := 0;						  
+		
+		--- Añadí stack a la memoria de datos ---
 		if (DataCtrlBusMem = READ_MEMORY) then
-			for i in 0 to accessSize-1 loop
-				for j in 0 to Data_Memory(intAddress)'LENGTH-1 loop
-					DataDataBusOutMem(iDataBus) <= Data_Memory(intAddress)(j);
-					iDataBus := iDataBus + 1;
-				end loop;
+			for i in 0 to accessSize-1 loop									 
+				--- Corresponde a DATA mem
+				if (intAddress >= DATA_BEGIN and intAddress <= INST_BEGIN-1) then
+					for j in 0 to Data_Memory(intAddress)'LENGTH-1 loop
+                        DataDataBusOutMem(iDataBus) <= Data_Memory(intAddress)(j);
+                        iDataBus := iDataBus + 1;
+                    end loop;	
+				--- Corresponde a STACK mem
+				elsif (intAddress >= STACK_BEGIN and intAddress <= MEMORY_END) then
+					for j in 0 to Stack_Memory(intAddress)'LENGTH-1 loop
+                        DataDataBusOutMem(iDataBus) <= Stack_Memory(intAddress)(j);
+						iDataBus := iDataBus + 1;
+                    end loop; 
+				--- No corresponde a ningun tipo de mem de datos
+				else
+					report "Error: la dirección seleccionada no pertenece a la memoria de datos " & integer'image(intAddress) & " . " & integer'image(MEMORY_END)
+					severity FAILURE;	
+				end if;
+				
 				intAddress := intAddress + 1;
-			end loop;
+				
+			end loop;  
+			
 			EnableDataMemToCpu <= '1';
 			WAIT FOR 1 ps;
 			EnableDataMemToCpu <= '0';
 		elsif (DataCtrlBusMem = WRITE_MEMORY) then 
 			for i in 0 to accessSize-1 loop
-				for j in 0 to Data_Memory(intAddress)'LENGTH-1 loop
-					Data_Memory(intAddress)(j) <= DataDataBusInMem(iDataBus);
-					--Memory(intAddress)(j) <= DataDataBusInMem(iDataBus);
-					iDataBus := iDataBus + 1;
-				end loop;
+				
+				--- Corresponde a DATA mem
+				if (intAddress >= DATA_BEGIN and intAddress <= INST_BEGIN) then
+					for j in 0 to Data_Memory(intAddress)'LENGTH-1 loop
+                        Data_Memory(intAddress)(j) <= DataDataBusInMem(iDataBus);
+                        --Memory(intAddress)(j) <= DataDataBusInMem(iDataBus); 
+                        iDataBus := iDataBus + 1;
+                    end loop;	
+				--- Corresponde a STACK mem
+				elsif (intAddress >= STACK_BEGIN and intAddress <= MEMORY_END) then
+					for j in 0 to Stack_Memory(intAddress)'LENGTH-1 loop
+                        Stack_Memory(intAddress)(j) <= DataDataBusInMem(iDataBus);
+                        --Memory(intAddress)(j) <= DataDataBusInMem(iDataBus);
+                        iDataBus := iDataBus + 1;
+                    end loop; 
+				--- No corresponde a ningun tipo de mem de datos
+				else
+					report "Error: la dirección seleccionada no pertenece a la memoria de datos"   & integer'image(intAddress) & " . " & integer'image(MEMORY_END)
+					severity FAILURE;	
+				end if;
+				
+		----------------------------------------------------------------		
 				intAddress := intAddress + 1;
 			end loop;
 		else

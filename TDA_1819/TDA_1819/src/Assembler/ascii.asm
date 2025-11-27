@@ -1,10 +1,12 @@
 		.data
-num2:		.hword	80
+num2:		.hword	2
 num1:		.word	20
 		.code
-		lw r1, num1(r0)
-		daddi r3, r2, 5
-		addf f3, f1, f2
-		pushh rd
+		lh r7, num2(r0)
+		daddi r8, r7, 0
+		pushh r8
+		pushh r8
+		poph r8
+		poph r8
 		halt
-	
+  

@@ -98,7 +98,10 @@ entity registros is
 		EnableRegIFIPRd		: in  std_logic;
 		EnableRegIFIRWr 	: in  std_logic;
 		EnableRegIFIPWr		: in  std_logic;
-		EnableRegID			: in  std_logic;
+		EnableRegID			: in  std_logic;  
+		--- Añado señal de control permitir modificar SP desde etapa ID ---
+		EnableRegIDSP		: in std_logic;
+		------------------------------------------------------------------
 		EnableRegIDIP		: in  std_logic;
 		EnableRegEXALURd	: in  std_logic;
 		EnableRegEXFPURd	: in  std_logic;
@@ -348,7 +351,7 @@ begin
 				for i in readSize-1 downto 0 loop
 					DataRegOutID(i) <= BP(i);
 				end loop;
-			WHEN ID_SP =>
+			WHEN ID_SP =>  
 				for i in readSize-1 downto 0 loop
 					DataRegOutID(i) <= SP(i);
 				end loop;
@@ -375,7 +378,22 @@ begin
 			IP <= DataRegInEXALU(15 downto 0);
 			--WAIT FOR 10 ns;
 		end if;	
-	END PROCESS IP_Aux;
+	END PROCESS IP_Aux;	
+	
+	--- Añado el proceso para permitir modificar SP desde etapa ID ---
+	
+	SP_Aux: PROCESS
+	BEGIN
+	    WAIT UNTIL (rising_edge(EnableRegIDSP));
+	
+	    -- SP sólo se escribe desde ID
+	    if (EnableRegIDSP = '1') then
+	        SP <= X"0000" & DataRegInID(15 downto 0);
+	        WAIT FOR 15 ns; 
+	    end if;											 
+	END PROCESS SP_Aux;
+
+	------------------------------------------------------------------
 	
 	
 	ALU_Read: PROCESS
@@ -782,14 +800,18 @@ begin
 				end loop;
 				for i in writeSize-1 downto 0 loop
 					BP(i) <= DataRegInWB(i);
-				end loop;
-			WHEN ID_SP =>
-				for i in 31 downto writeSize loop
-					SP(i) <= 'Z';
-				end loop;
-				for i in writeSize-1 downto 0 loop
-					SP(i) <= DataRegInWB(i);
-				end loop;
+				end loop; 
+				
+			--- Elimino la operacion de WB sobre SP ya que se maneja en etapa ID ---
+			--WHEN ID_SP =>		
+			--	for i in 31 downto writeSize loop
+			--		SP(i) <= 'Z';
+			--	end loop;
+			--	for i in writeSize-1 downto 0 loop 
+			--		SP(i) <= DataRegInWB(i);
+			--	end loop;
+			-----------------------------------------------------------------	
+			
 			WHEN ID_RA =>
 				for i in 31 downto writeSize loop
 					RA(i) <= 'Z';

@@ -63,7 +63,10 @@ entity etapas is
 		EnableRegIFIPRd			: out 	std_logic;
 		EnableRegIFIRWr			: out 	std_logic;		
 		EnableRegIFIPWr			: out 	std_logic;
-		EnableRegID				: out   std_logic;
+		EnableRegID				: out   std_logic;	
+		--- Añado señal de control permitir modificar SP desde etapa ID ---
+		EnableRegIDSP			: out std_logic;
+		-------------------------------------------------------------------
 		EnableRegIDIP			: out   std_logic;
 		EnableRegEXALURd		: out 	std_logic;
 		EnableRegEXFPURd		: out 	std_logic;
@@ -147,7 +150,10 @@ architecture ETAPAS_ARCHITECTURE of etapas is
 			DataRegInID			: out   std_logic_vector(31 downto 0);
 			IdRegID				: out   std_logic_vector(7 downto 0);
 			SizeRegID			: out   std_logic_vector(3 downto 0);
-			EnableRegID			: out   std_logic;
+			EnableRegID			: out   std_logic; 
+			--- Añado señal de control permitir modificar SP desde etapa ID ---
+			EnableRegIDSP		: out   std_logic;
+			-------------------------------------------------------------------
 			EnableRegIDIP		: out   std_logic;
 			EnableIncWrPend		: out   std_logic;
 			EnableIncFPWrPend	: out   std_logic;
@@ -275,7 +281,10 @@ begin
 			DataRegInID			=> DataRegInID,
 			IdRegID				=> IdRegID,
 			SizeRegID			=> SizeRegID,
-			EnableRegID			=> EnableRegID,
+			EnableRegID			=> EnableRegID,	  
+			--- Añado señal de control permitir modificar SP desde etapa ID ---
+			EnableRegIDSP		=> EnableRegIDSP,
+			-------------------------------------------------------------------
 			EnableRegIDIP		=> EnableRegIDIP,
 			EnableIncWrPend		=> EnableIncWrPend,
 			EnableIncFPWrPend	=> EnableIncFPWrPend,
