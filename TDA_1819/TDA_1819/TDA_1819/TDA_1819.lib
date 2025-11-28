@@ -1,13 +1,13 @@
-timestamp=1764224975643
+timestamp=1764288676368
 
 [~A]
-ModifyID=206
+ModifyID=207
 Version=74
 
 [~MFT]
-0=88|0TDA_1819.mgf|6432603|6027837
-1=76|1TDA_1819.mgf|36597193|36351945
-3=52|3TDA_1819.mgf|18346908|18222390
+0=10|0TDA_1819.mgf|6435170|6030530
+1=2|1TDA_1819.mgf|36602571|36367465
+3=2|3TDA_1819.mgf|18349836|18241814
 
 [atascos]
 A/atascos_architecture=A/ATASCOS_ARCHITECTURE 21|../src/Usuario/PC/2. CPU/4. Atascos/atascos.vhd|70|1*36564497
@@ -135,15 +135,15 @@ Version=15.0.261.9132 (Windows64)|00000003789cd3f5370600015b00b0|b242c755e80c071
 Version/cpu_admin_architecture=15.0.261.9132 (Windows64)|00000003789cd3f5370600015b00b0|a1061df75b1c4ddc3309289665e1ae6e00d31943f194a0a4bd37d58f13841411d21465c21fd1ac344fd87248e0169766
 
 [decode]
-A/decode_architecture=21|../src/Usuario/PC/2. CPU/2. Etapas/2. Decode/decode.vhd|97|1*36522353
-BinW64/decode_architecture=3*18281976
-I=0*2471730
-I/decode_architecture=0*6413350
-M=11|2|vf5|1764198665758|../src/Usuario/PC/2. CPU/2. Etapas/2. Decode/decode.vhd|0*2470317*0xc8fc306768113973e49a354628746fc65df27556|0*2471615*0x23b75c12e3e89f2ef000564498faa8c2
-M/decode_architecture=21|2|vf5|1764224975041|../src/Usuario/PC/2. CPU/2. Etapas/2. Decode/decode.vhd|0*6352973*0x96942d4d8cb378103bb8a4cfe4cb04612b215ac8|0*6413212*0x20116f55b147878295aeff36dce7fc50
+A/decode_architecture=21|../src/Usuario/PC/2. CPU/2. Etapas/2. Decode/decode.vhd|97|1*36602571
+BinW64/decode_architecture=3*18349836
+I=0*6434795
+I/decode_architecture=0*6435170
+M=11|2|vf5|1764288676229|../src/Usuario/PC/2. CPU/2. Etapas/2. Decode/decode.vhd|0*6433414*0xeb269276870b72733682378f097cfc896f2a2e59|0*6434680*0x23b75c12e3e89f2ef000564498faa8c2
+M/decode_architecture=21|2|vf5|1764288676262|../src/Usuario/PC/2. CPU/2. Etapas/2. Decode/decode.vhd|0*6352973*0x96942d4d8cb378103bb8a4cfe4cb04612b215ac8|0*6413212*0x20116f55b147878295aeff36dce7fc50
 R=../src/Usuario/PC/2. CPU/2. Etapas/2. Decode/decode.vhd|57
-Version=15.0.261.9132 (Windows64)|00000003789cd3f5370600015b00b0|a2352d9517570379617fafcd704885a32a9de33d512e1c3b86cef95a62f02655
-Version/decode_architecture=15.0.261.9132 (Windows64)|00000003789cd3f5370600015b00b0|ae6b8308987cf57f5a5c08191604d3097d21d07cac5eff2b16ca9773b0aabf15fcec44ec70c60f7c4b1e8ca39a441d7b
+Version=15.0.261.9132 (Windows64)|00000003789cd3f5370600015b00b0|a2352d9517570379617fafcd704885a348097239d8c85d966077d2e394d825dd
+Version/decode_architecture=15.0.261.9132 (Windows64)|00000003789cd3f5370600015b00b0|ae6b8308987cf57f5a5c08191604d3097d21d07cac5eff2b16ca9773b0aabf15ced11da7a36f220e5bc2274bee0e52ed
 
 [ensamblador]
 A/ensamblador_architecture=A/ENSAMBLADOR_ARCHITECTURE 21|../src/Usuario/PC/1. Ensamblador/ensamblador.vhd|118|1*36450520
@@ -428,7 +428,7 @@ const_registros=3|0*524760|0*524896
 const_reloj=3|0*515262|0*515390
 cpu=11|0*553280|
 cpu_admin=11|0*768579|
-decode=11|0*2469871|
+decode=11|0*6432968|
 ensamblador=11|0*838152|
 etapas=11|0*2465419|
 execute=11|0*673603|

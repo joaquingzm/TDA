@@ -2130,7 +2130,7 @@ begin
 	END checkInstCt; 
 	
 	
-	 --- Añado checkInst para Manejo de Pila para la implementación de las instrucciones pushh y poph ---
+	--- Añado checkInst para Manejo de Pila para la implementación de las instrucciones pushh y poph ---
 	
 	PROCEDURE checkInstMp(CONSTANT cadena, INSTMP_NAME: IN STRING; CONSTANT INSTMP_CODE: STD_LOGIC_VECTOR(7 downto 0);
 						CONSTANT INSTMP_SIZE: IN INTEGER; i: INOUT INTEGER; check: INOUT BOOLEAN;
@@ -2316,7 +2316,7 @@ begin
 			end loop;
 		end if;	 
 		
-		 
+		--- Añado comprobacion de instruccion para el manejo de pila ---
 			
 		if (not check) then
 			for j in INSTMP_NAMES'RANGE loop

@@ -103,7 +103,7 @@ PACKAGE tipos_cpu is
 	TYPE memaccess_records IS ARRAY (NATURAL RANGE <>) OF memaccess_record;
 	
 	TYPE writeback_records IS ARRAY (NATURAL RANGE <>) OF writeback_record;	
-			
+	
 	TYPE idwrpending_records IS ARRAY (NATURAL RANGE <>) OF std_logic_vector(7 downto 0);
 	
 	 

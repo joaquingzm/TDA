@@ -117,7 +117,7 @@ begin
 					end loop;
 					for i in SizeBits-1 downto 0 loop
 						DataMAtoWB(i) <= DataDataBusInCpu(i);
-					end loop;					
+					end loop;
 				elsif (RecInMA.write = '1') then
 					Source := to_integer(unsigned(RecInMA.source));
 					if (Source = MEM_ID) then

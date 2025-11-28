@@ -36,13 +36,7 @@ library TDA_1819;
 use TDA_1819.const_registros.all;
 use TDA_1819.const_cpu.all;
 use TDA_1819.repert_cpu.all;
-use TDA_1819.tipos_cpu.all;		  
-
---- Añado las constantes de memoria para el Manejo de Pila ---
-	
-use TDA_1819.const_memoria.all;
-	
------------------------------------------------------------------
+use TDA_1819.tipos_cpu.all;
 
 
 

@@ -351,7 +351,7 @@ begin
 				for i in readSize-1 downto 0 loop
 					DataRegOutID(i) <= BP(i);
 				end loop;
-			WHEN ID_SP =>  
+			WHEN ID_SP =>
 				for i in readSize-1 downto 0 loop
 					DataRegOutID(i) <= SP(i);
 				end loop;
